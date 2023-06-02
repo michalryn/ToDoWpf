@@ -8,21 +8,14 @@ using System.Threading.Tasks;
 
 namespace ToDoApp.Data.DTOs
 {
-    [Table("MainTask")]
-    internal class MainTaskDTO
+    [Table("SubTask")]
+    internal class SubTaskDTO
     {
         [Key]
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
-        [Required]
-        public string PriorityLevel { get; set; }
-        [Required]
-        public DateTime CreationDate { get; set; }
-        public DateTime? DeadlineDate { get; set; }
         public string? Description { get; set; }
-        public string? Progress { get; set; }
-        public virtual ICollection<SubTaskDTO>? SubTasks { get; set; }
         public bool IsCompleted { get; set; }
     }
 }
