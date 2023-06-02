@@ -13,6 +13,8 @@ namespace ToDoApp.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
         DbSet<MainTaskDTO> MainTasks { get; set; }
+        DbSet<SubTaskDTO> SubTasks { get; set; }
+
 
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class, new()
         {
