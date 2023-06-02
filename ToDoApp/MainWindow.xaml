@@ -5,8 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <ResourceDictionary Source="Theme/WindowButtonTheme.xaml"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_CloseWindowCommand" Executed="CommandBinding_Executed_CloseWindowCommand"/>
+    </Window.CommandBindings>
+    <Border Background="{StaticResource BackgroundColor}" CornerRadius="12">
+        <Border 
+            Name="headerBorder"
+            Width="Auto"
+            Height="Auto"
+            VerticalAlignment="Top"
+            CornerRadius="12,12,0,0"
+            Background="{StaticResource BackgroundColor}"
+            BorderThickness="1,1,1,1"
+            BorderBrush="{StaticResource BackgroundColor}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Thumb
+                    x:Name="headerThumb"
+                    Opacity="0"
+                    Background="{x:Null}"
+                    Foreground="{x:Null}"
+                    DragDelta="headerThumb_DragDelta"
+                    Cursor="Hand"
+                    Grid.Column="0"/>
+                <Button
+                    Command="{x:Static SystemCommands.CloseWindowCommand}"
+                    Background="{StaticResource BackgroundColor}"
+                    Foreground="{StaticResource ForegroundColor}"
+                    Content="r"
+                    Grid.Column="1"
+                    Cursor="Hand"
+                    Margin="2,2,4,2"
+                    ToolTip="Zamknij"
+                    Style="{StaticResource WindowButtonTheme}"/>
+            </Grid>
+        </Border>
+    </Border>
 </Window>

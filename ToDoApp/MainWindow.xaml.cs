@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,22 @@ namespace ToDoApp
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
+        {
+            Left += e.HorizontalChange;
+            Top += e.VerticalChange;
+        }
+
+        private void CommandBinding_CanExecute_CloseWindowCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CommandBinding_Executed_CloseWindowCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.CloseWindow(this);
         }
     }
 }

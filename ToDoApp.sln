@@ -3,12 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp", "ToDoApp\ToDoApp.csproj", "{CE996F20-F510-4CE5-A32F-8B274704FCCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp", "ToDoApp\ToDoApp.csproj", "{CE996F20-F510-4CE5-A32F-8B274704FCCA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{628184F2-1FF7-47E0-8E1E-20DF115743DB} = {628184F2-1FF7-47E0-8E1E-20DF115743DB}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Data", "ToDoApp.Data\ToDoApp.Data.csproj", "{628184F2-1FF7-47E0-8E1E-20DF115743DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Data", "ToDoApp.Data\ToDoApp.Data.csproj", "{628184F2-1FF7-47E0-8E1E-20DF115743DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{43493B15-CED8-4368-8C01-20007B9C7219}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

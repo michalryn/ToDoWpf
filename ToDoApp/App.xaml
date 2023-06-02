@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ToDoApp">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundColor" Color="#F1FCFF"/>
+            <SolidColorBrush x:Key="ForegroundColor" Color="#9ECECE"/>
+            <SolidColorBrush x:Key="CloseButtonBgColor" Color="#B8D9D9D9"/>
+            <SolidColorBrush x:Key="CloseButtonFgColor" Color="#85AEAE"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

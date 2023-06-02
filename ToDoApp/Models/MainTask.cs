@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ToDoApp.Models
 {
-    internal class MainTask
+    public class MainTask
     {
+        public int Id { get; }
+        public string Title { get; set; }
     }
 }
