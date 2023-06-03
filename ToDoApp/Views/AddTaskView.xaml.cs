@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ToDoApp.Models;
+using System.Windows.Threading;
 
-namespace ToDoApp
+namespace ToDoApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddTaskView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddTaskView : UserControl
     {
-        public MainWindow()
+        public AddTaskView()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+
         }
     }
 }
