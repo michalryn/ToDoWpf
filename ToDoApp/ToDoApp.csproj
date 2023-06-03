@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <None Remove="Fonts\Poppins-Bold.ttf" />
+    <None Remove="Fonts\Poppins-BoldItalic.ttf" />
+    <None Remove="Fonts\Poppins-Italic.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +20,18 @@
   <ItemGroup>
     <ProjectReference Include="..\ToDoApp.Data\ToDoApp.Data.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<Resource Include="Fonts\Poppins-Bold.ttf">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Fonts\Poppins-BoldItalic.ttf">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Fonts\Poppins-Italic.ttf">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+		<Resource Include="Fonts\Poppins-Regular.ttf">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
 </Project>
