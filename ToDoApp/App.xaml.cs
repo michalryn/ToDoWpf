@@ -7,9 +7,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ToDoApp.Core;
 using ToDoApp.Data;
 using ToDoApp.Data.IRepositories;
 using ToDoApp.Data.Repositories;
+using ToDoApp.Services;
+using ToDoApp.ViewModels;
 
 namespace ToDoApp
 {
@@ -27,7 +30,7 @@ namespace ToDoApp
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = _serviceProvider.GetService<MainWindow>();
+            var MainWindow = _serviceProvider.GetService<MainWindow>();
             MainWindow.Show();
 
             base.OnStartup(e);
@@ -43,7 +46,18 @@ namespace ToDoApp
             });
 
             services.AddSingleton<IMainTaskRepository, MainTaskRepository>();
-            services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainWindow>(provider => new MainWindow
+            {
+                DataContext = provider.GetRequiredService<MainViewModel>(),
+
+            });
+
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<HomeViewModel>();
+            services.AddSingleton<TaskViewModel>();
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
             return services.BuildServiceProvider();
         }

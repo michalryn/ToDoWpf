@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ToDoApp.Core;
 
-namespace ToDoApp.Models
+namespace ToDoApp.ViewModels
 {
-    public class MainTask
+    public class TaskViewModel : ViewModel
     {
-        public int Id { get; }
-        public string Title { get; set; }
     }
 }

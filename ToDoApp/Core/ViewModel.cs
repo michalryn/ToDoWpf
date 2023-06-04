@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToDoApp.Models
+namespace ToDoApp.Core
 {
-    public class MainTask
+    public abstract class ViewModel : ObservableObject
     {
-        public int Id { get; }
-        public string Title { get; set; }
+
     }
 }

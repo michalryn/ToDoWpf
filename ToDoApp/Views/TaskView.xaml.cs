@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ToDoApp
+namespace ToDoApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy TaskView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TaskView : UserControl
     {
-        public MainWindow()
+        public TaskView()
         {
             InitializeComponent();
         }
