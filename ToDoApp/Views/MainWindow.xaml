@@ -72,7 +72,7 @@
                     Grid.Column="0"
                     Background="{StaticResource WhiteColor}"
                     CornerRadius="12"
-                    Margin="8,0,8,8">
+                    Margin="10,0,8,8">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
                     </Border.Effect>
@@ -82,23 +82,23 @@
                             FontSize="18"
                             FontWeight="Bold"
                             Margin="6"
-                            Foreground="{StaticResource SecondaryColor}"/>
+                            Foreground="{StaticResource ForegroundColor}"/>
 
                         <Button Content="Home"
                                 BorderThickness="0"
                             Background="{StaticResource PrimaryColor}"
-                            Foreground="{StaticResource SecondaryColor}"
+                            Foreground="{StaticResource WhiteColor}"
                             Command="{Binding Path=NavigateToHomeCommand}"/>
 
                         <Button 
                             Content="Add Task"
                             BorderThickness="0"
-                            Foreground="{StaticResource SecondaryColor}"
+                            Foreground="{StaticResource WhiteColor}"
                             Background="{StaticResource PrimaryColor}"/>
                         <Button 
                             Content="Delete Task"
                             BorderThickness="0"
-                            Foreground="{StaticResource SecondaryColor}"
+                            Foreground="{StaticResource WhiteColor}"
                             Background="{StaticResource DangerColor}"/>
                     </StackPanel>
                 </Border>
