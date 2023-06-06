@@ -24,5 +24,6 @@ namespace ToDoApp.Data.DTOs
         public double? Progress { get; set; }
         public virtual ICollection<SubTaskDTO>? SubTasks { get; set; }
         public bool IsCompleted { get; set; }
+
     }
 }

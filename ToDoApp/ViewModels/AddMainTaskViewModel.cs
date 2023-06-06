@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Core;
+using ToDoApp.Data.DTOs;
+using ToDoApp.Data.IRepositories;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
@@ -11,6 +13,8 @@ namespace ToDoApp.ViewModels
 {
     public class AddMainTaskViewModel : ViewModel
     {
+        private readonly IMainTaskRepository _mainTaskRepository;
+
         private string _title;
 
         public string Title
@@ -35,7 +39,7 @@ namespace ToDoApp.ViewModels
             }
         }
 
-        private DateTime _startDate;
+        private DateTime _startDate = DateTime.Today;
 
         public DateTime StartDate
         {
@@ -47,7 +51,7 @@ namespace ToDoApp.ViewModels
             }
         }
 
-        private DateTime _deadlineDate;
+        private DateTime _deadlineDate = DateTime.Today;
 
         public DateTime DeadlineDate
         {
@@ -71,21 +75,19 @@ namespace ToDoApp.ViewModels
             }
         }
 
-
-        public FakeTaskRepo repo { get; set; } = new FakeTaskRepo();
         public RelayCommand AddMainTaskCommand { get; set; }
 
-        public AddMainTaskViewModel()
+        public AddMainTaskViewModel(IMainTaskRepository mainTaskRepository)
         {
-            AddMainTaskCommand = new RelayCommand(o => AddMainTask(), o => true);
+            _mainTaskRepository = mainTaskRepository;
+            AddMainTaskCommand = new RelayCommand(o => AddMainTask());
         }
 
 
-        public void AddMainTask()
+        public async void AddMainTask()
         {
             MainTask task = new MainTask()
             {
-                Id = 1,
                 Title = this.Title,
                 PriorityLevel = this.PriorityLevel,
                 CreationDate = this.StartDate,
@@ -95,7 +97,18 @@ namespace ToDoApp.ViewModels
                 IsCompleted = false
             };
 
-            repo.AddTask(task);
+            MainTaskDTO newTask = new MainTaskDTO()
+            {
+                Title = task.Title,
+                PriorityLevel = task.PriorityLevel,
+                CreationDate = task.CreationDate,
+                DeadlineDate = task.DeadlineDate,
+                Description = task.Description,
+                Progress = task.Progress,
+                IsCompleted = task.IsCompleted
+            };
+
+            await _mainTaskRepository.AddMainTaskAsync(newTask);
         }
     }
 }
