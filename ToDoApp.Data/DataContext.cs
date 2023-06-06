@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ToDoApp.Data.DTOs;
 
 namespace ToDoApp.Data
@@ -12,8 +7,8 @@ namespace ToDoApp.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        DbSet<MainTaskDTO> MainTasks { get; set; }
-        DbSet<SubTaskDTO> SubTasks { get; set; }
+        public DbSet<MainTaskDTO> MainTasks { get; set; }
+        public DbSet<SubTaskDTO> SubTasks { get; set; }
 
 
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class, new()
