@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ToDoApp.Data.DTOs
 {
     [Table("MainTask")]
-    internal class MainTaskDTO
+    public class MainTaskDTO
     {
         [Key]
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace ToDoApp.Data.DTOs
         public DateTime CreationDate { get; set; }
         public DateTime? DeadlineDate { get; set; }
         public string? Description { get; set; }
-        public string? Progress { get; set; }
+        public double? Progress { get; set; }
         public virtual ICollection<SubTaskDTO>? SubTasks { get; set; }
         public bool IsCompleted { get; set; }
     }

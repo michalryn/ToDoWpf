@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ToDoApp.Data.DTOs
 {
     [Table("SubTask")]
-    internal class SubTaskDTO
+    public class SubTaskDTO
     {
         [Key]
         public int Id { get; set; }
