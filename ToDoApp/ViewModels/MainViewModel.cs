@@ -18,19 +18,19 @@ namespace ToDoApp.ViewModels
             set
             {
                 _navigationService = value;
-                OnPropertChanged();
+                OnPropertyChanged();
             }
         }
 
         public RelayCommand NavigateToHomeCommand { get; set; }
-        public RelayCommand NavigateToTaskCommand { get; set; }
+        public RelayCommand NavigateToAddMainTaskViewCommand { get; set; }
 
         public MainViewModel(INavigationService navService)
         {
             Navigation = navService;
             Navigation.NavigateTo<HomeViewModel>();
             NavigateToHomeCommand = new RelayCommand(o => { Navigation.NavigateTo<HomeViewModel>(); }, o => true);
-            NavigateToTaskCommand = new RelayCommand(o => { Navigation.NavigateTo<TaskViewModel>(); }, o => true);
+            NavigateToAddMainTaskViewCommand = new RelayCommand(o => { Navigation.NavigateTo<AddMainTaskViewModel>(); }, o => true);
         }
     }
 }

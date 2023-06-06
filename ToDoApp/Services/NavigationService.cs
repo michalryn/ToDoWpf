@@ -22,7 +22,7 @@ namespace ToDoApp.Services
             private set
             {
                 _currentView = value;
-                OnPropertChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -36,5 +36,6 @@ namespace ToDoApp.Services
             ViewModel viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
             CurrentView = viewModel;
         }
+
     }
 }

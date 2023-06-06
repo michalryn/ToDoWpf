@@ -67,41 +67,32 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-
-                <Border 
-                    Grid.Column="0"
-                    Background="{StaticResource WhiteColor}"
-                    CornerRadius="12"
-                    Margin="10,0,8,8">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
-                    </Border.Effect>
-                    <StackPanel Margin="6">
-                        <TextBlock 
+                <StackPanel Margin="6" Grid.Column="0">
+                    <TextBlock 
                             Text="WorkToDo"
                             FontSize="18"
                             FontWeight="Bold"
                             Margin="6"
                             Foreground="{StaticResource ForegroundColor}"/>
 
-                        <Button Content="Home"
+                    <Button Content="Home"
                                 BorderThickness="0"
                             Background="{StaticResource PrimaryColor}"
                             Foreground="{StaticResource WhiteColor}"
                             Command="{Binding Path=NavigateToHomeCommand}"/>
 
-                        <Button 
+                    <Button 
                             Content="Add Task"
                             BorderThickness="0"
                             Foreground="{StaticResource WhiteColor}"
-                            Background="{StaticResource PrimaryColor}"/>
-                        <Button 
+                            Background="{StaticResource PrimaryColor}"
+                            Command="{Binding Path=NavigateToAddMainTaskViewCommand}"/>
+                    <Button 
                             Content="Delete Task"
                             BorderThickness="0"
                             Foreground="{StaticResource WhiteColor}"
                             Background="{StaticResource DangerColor}"/>
-                    </StackPanel>
-                </Border>
+                </StackPanel>
                 <ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentView}"/>
             </Grid>
         </DockPanel>
