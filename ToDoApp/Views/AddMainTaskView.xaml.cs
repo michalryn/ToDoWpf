@@ -23,6 +23,23 @@ namespace ToDoApp.Views
         public AddMainTaskView()
         {
             InitializeComponent();
+            DataContext = this;
         }
+
+        public bool AreFieldsValid
+        {
+            get { return !string.IsNullOrEmpty(titleTextBox.Text) && !string.IsNullOrEmpty(descTextBox.Text); }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            btnAddTask.IsEnabled = AreFieldsValid;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

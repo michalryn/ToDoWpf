@@ -42,8 +42,9 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Title"/>
             <TextBox
+                Name="titleTextBox"
                 Grid.Row="1"
-            Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
+            Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -53,8 +54,9 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Priority"/>
             <TextBox
-             Grid.Row="1"
-            Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}"/>
+            Name="priorTextBox"
+            Grid.Row="1"
+            Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
         </Grid>
 
         <Grid Grid.Row="3">
@@ -67,9 +69,9 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Content="Start date"/>
-            <DatePicker Grid.Row="1" SelectedDate="{Binding StartDate}"/>
+            <DatePicker Name="datePick1" Grid.Row="1" SelectedDate="{Binding StartDate}"/>
             <Label Grid.Row="0" Grid.Column="1" Content="Deadline date"/>
-            <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding DeadlineDate}"/>
+            <DatePicker Name="datePick2" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding DeadlineDate}"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -79,13 +81,37 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Content="Description"/>
             <TextBox 
+                Name="descTextBox"
                 Grid.Row="1"
-                Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
+                Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
         </Grid>
 
-        <Button 
+        <Button
+            Name="btnAddTask"
+            Width="250"
+            Height="35"
             Margin="60,20,60,20"
             Grid.Row="5"
-            Content="Add task" Command="{Binding AddMainTaskCommand}"/>
+            BorderThickness="0"
+            Background="{StaticResource PrimaryColor}"
+            Foreground="{StaticResource WhiteColor}"
+            Content="Add task" 
+            FontWeight="Bold"
+            Command="{Binding AddMainTaskCommand}"
+            IsEnabled="{Binding AreFieldsValid}" 
+            Click="Button_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="17.5">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+        </Button>
+
     </Grid>
 </UserControl>
