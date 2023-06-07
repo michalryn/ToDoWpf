@@ -24,6 +24,7 @@ namespace ToDoApp.Views
         {
             InitializeComponent();
             DataContext = this;
+
         }
 
         public bool AreFieldsValid
