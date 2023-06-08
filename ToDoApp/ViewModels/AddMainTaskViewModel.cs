@@ -24,6 +24,7 @@ namespace ToDoApp.ViewModels
             {
                 _title = value;
                 OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(AreFieldsValid));
             }
         }
 
@@ -36,6 +37,7 @@ namespace ToDoApp.ViewModels
             {
                 _priorityLevel = value;
                 OnPropertyChanged(nameof(PriorityLevel));
+                OnPropertyChanged(nameof(AreFieldsValid));
             }
         }
 
@@ -72,6 +74,17 @@ namespace ToDoApp.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
+                OnPropertyChanged(nameof(AreFieldsValid));
+            }
+        }
+
+        public bool AreFieldsValid
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Title) &&
+                       !string.IsNullOrEmpty(Description) &&
+                       !string.IsNullOrEmpty(PriorityLevel);
             }
         }
 

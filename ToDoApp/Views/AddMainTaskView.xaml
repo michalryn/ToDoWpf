@@ -46,8 +46,8 @@
                 Margin="20,0,300,10" 
                 Name="titleTextBox"
                 Grid.Row="1"
-                TextChanged="TextBox_TextChanged" Height="22"/>
-            <!--Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"-->
+                Height="22"
+                Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -56,11 +56,15 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Label  Margin="8,0,0,0" Grid.Row="0" Content="Priority" FontSize="16" FontWeight="Bold"/>
-            <ComboBox Margin="20,0,300,10" Grid.Row="1"
-                      ItemsSource="{Binding Priorities}"
-                      SelectedItem="{Binding SelectedPriority}">
+            <ComboBox Name="propCombBox" Margin="20,0,300,10" Grid.Row="1" Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.Items>
+                <ComboBoxItem>Item 1</ComboBoxItem>
+                <ComboBoxItem>Item 2</ComboBoxItem>
+                <ComboBoxItem>Item 3</ComboBoxItem>
+                </ComboBox.Items>
             </ComboBox>
-            <!--Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}"-->
+            <!--#region ItemsSource="{Binding PriorityLevel}"
+                      SelectedItem="{Binding SelectedPriority}"> -->
         </Grid>
 
         <Grid Grid.Row="3">
@@ -75,11 +79,9 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Margin="8,0,0,0" Grid.Row="0" Content="Start date" FontSize="16" FontWeight="Bold"/>
-            <DatePicker Margin="20,0,50,10" Name="datePick1" Grid.Row="1" />
-            <!--SelectedDate="{Binding StartDate}"-->
+            <DatePicker Margin="20,0,50,10" Name="datePick1" Grid.Row="1" SelectedDate="{Binding StartDate}"/>
             <Label Margin="8,0,0,0" Grid.Row="0" Grid.Column="1" Content="Deadline date" FontSize="16" FontWeight="Bold"/>
-            <DatePicker Margin="20,0,-100,10" Name="datePick2" Grid.Row="1" Grid.Column="1"/>
-            <!--SelectedDate="{Binding DeadlineDate}"-->
+            <DatePicker Margin="20,0,-100,10" Name="datePick2" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding DeadlineDate}"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -92,46 +94,33 @@
 
             <TextBox Grid.Row="1" Margin="20,0,20,10" Name="descTextBox" TextWrapping="Wrap" AcceptsReturn="True"
              VerticalScrollBarVisibility="Auto" MinHeight="50" MaxHeight="300"
-             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <!--Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"-->
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
-        <Button
-            FontSize="14"
-            Cursor="Hand"
-            Name="btnAddTask"
-            Width="250"
-            Height="35"
-            Margin="60,20,60,20"
-            Grid.Row="5"
-            BorderThickness="0"
-            Content="Add task" 
-            FontWeight="Bold"
-            >
+        <Button FontSize="14" Cursor="Hand" Name="btnAddTask" Width="250" Height="35" Margin="60,20,60,20" Grid.Row="5"
+        BorderThickness="0" Content="Add task" FontWeight="Bold">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding AreFieldsValid}" Value="False">
-                            <Setter Property="Background" Value="Gray" />
-                            <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
-                            <Setter Property="IsEnabled" Value="False" />
+                            <Setter  Property="Background" Value="Gray" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding AreFieldsValid}" Value="True">
                             <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
-                            <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
                     </Style.Triggers>
+                    <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
+                    <Setter Property="IsEnabled" Value="True" />
                 </Style>
             </Button.Style>
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="17.5">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="17.5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
             </Button.Template>
