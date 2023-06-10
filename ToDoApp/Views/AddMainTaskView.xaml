@@ -103,15 +103,16 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding AreFieldsValid}" Value="False">
-                            <Setter  Property="Background" Value="Gray" />
+                        <DataTrigger Binding="{Binding IsButtonEnabled}" Value="False">
+                            <Setter Property="Background" Value="Gray"/>
+                            <Setter Property="IsEnabled" Value="False" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding AreFieldsValid}" Value="True">
+                        <DataTrigger Binding="{Binding IsButtonEnabled}" Value="True">
                             <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+                            <Setter Property="IsEnabled" Value="True" />
                         </DataTrigger>
                     </Style.Triggers>
                     <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
-                    <Setter Property="IsEnabled" Value="True" />
                 </Style>
             </Button.Style>
             <Button.Template>
@@ -125,6 +126,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
 
     </Grid>
 </UserControl>
