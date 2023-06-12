@@ -99,7 +99,7 @@
         </Grid>
 
         <Button FontSize="14" Cursor="Hand" Name="btnAddTask" Width="250" Height="35" Margin="60,20,60,20" Grid.Row="5"
-        BorderThickness="0" Content="Add task" FontWeight="Bold">
+        BorderThickness="0" Content="Add task" FontWeight="Bold" Command="{Binding AddMainTaskCommand}">
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
