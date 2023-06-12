@@ -24,6 +24,7 @@ namespace ToDoApp.ViewModels
             {
                 _title = value;
                 OnPropertyChanged(nameof(Title));
+                UpdateButtonState();
             }
         }
 
@@ -36,6 +37,7 @@ namespace ToDoApp.ViewModels
             {
                 _priorityLevel = value;
                 OnPropertyChanged(nameof(PriorityLevel));
+                UpdateButtonState();
             }
         }
 
@@ -72,6 +74,40 @@ namespace ToDoApp.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
+                UpdateButtonState();
+            }
+        }
+
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                OnPropertyChanged(nameof(IsButtonEnabled));
+            }
+        }
+
+        private void UpdateButtonState()
+        {
+            if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(PriorityLevel) && !string.IsNullOrEmpty(Description))
+            {
+                IsButtonEnabled = true;
+            }
+            else
+            {
+                IsButtonEnabled = false;
+            }
+        }
+
+        public bool AreFieldsValid
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Title) &&
+                       !string.IsNullOrEmpty(Description) &&
+                       !string.IsNullOrEmpty(PriorityLevel);
             }
         }
 
