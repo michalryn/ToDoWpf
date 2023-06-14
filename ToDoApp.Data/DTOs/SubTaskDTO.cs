@@ -17,5 +17,9 @@ namespace ToDoApp.Data.DTOs
         public string Title { get; set; }
         public string? Description { get; set; }
         public bool IsCompleted { get; set; }
+        [Required]
+        public int MainTaskId { get; set; }
+        [ForeignKey("MainTaskId")]
+        public virtual MainTaskDTO MainTask { get; set; }
     }
 }
