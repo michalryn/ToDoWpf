@@ -9,8 +9,8 @@ namespace ToDoApp.Data.IRepositories
 {
     public interface ISubTaskRepository
     {
-        Task AddSubTaskAsync(MainTaskDTO mainTask);
-        Task DeleteSubTaskByIdAsync(int id);
-        Task UpdateSubTaskAsync(MainTaskDTO mainTask);
+        Task AddSubTaskAsync(SubTaskDTO subTask);
+        Task DeleteSubTaskByIdAsync(int subTaskId);
+        Task UpdateSubTaskAsync(SubTaskDTO subTask);
     }
 }
