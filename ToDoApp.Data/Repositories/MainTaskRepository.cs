@@ -51,9 +51,6 @@ namespace ToDoApp.Data.Repositories
             await _context.UpdateEntityAndSaveChangesAsync(mainTask);
         }
 
-
-
-
     }
 }
 
