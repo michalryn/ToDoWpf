@@ -24,7 +24,6 @@ namespace ToDoApp.ViewModels
             {
                 _title = value;
                 OnPropertyChanged(nameof(Title));
-                UpdateButtonState();
             }
         }
 
@@ -37,7 +36,6 @@ namespace ToDoApp.ViewModels
             {
                 _priorityLevel = value;
                 OnPropertyChanged(nameof(PriorityLevel));
-                UpdateButtonState();
             }
         }
 
@@ -74,7 +72,6 @@ namespace ToDoApp.ViewModels
             {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
-                UpdateButtonState();
             }
         }
 
@@ -89,25 +86,15 @@ namespace ToDoApp.ViewModels
             }
         }
 
-        private void UpdateButtonState()
+        public bool CanExecute()
         {
             if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(PriorityLevel) && !string.IsNullOrEmpty(Description))
             {
-                IsButtonEnabled = true;
+                return true;
             }
             else
             {
-                IsButtonEnabled = false;
-            }
-        }
-
-        public bool AreFieldsValid
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(Title) &&
-                       !string.IsNullOrEmpty(Description) &&
-                       !string.IsNullOrEmpty(PriorityLevel);
+                return false;
             }
         }
 
@@ -116,7 +103,7 @@ namespace ToDoApp.ViewModels
         public AddMainTaskViewModel(IMainTaskRepository mainTaskRepository)
         {
             _mainTaskRepository = mainTaskRepository;
-            AddMainTaskCommand = new RelayCommand(o => AddMainTask());
+            AddMainTaskCommand = new RelayCommand(o => AddMainTask(), o => CanExecute());
         }
 
 
