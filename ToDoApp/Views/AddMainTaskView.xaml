@@ -103,14 +103,12 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsButtonEnabled}" Value="False">
+                        <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Background" Value="Gray"/>
-                            <Setter Property="IsEnabled" Value="False" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsButtonEnabled}" Value="True">
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="True">
                             <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-                            <Setter Property="IsEnabled" Value="True" />
-                        </DataTrigger>
+                        </Trigger>
                     </Style.Triggers>
                     <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
                 </Style>
