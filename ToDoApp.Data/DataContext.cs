@@ -10,6 +10,17 @@ namespace ToDoApp.Data
         public DbSet<MainTaskDTO> MainTasks { get; set; }
         public DbSet<SubTaskDTO> SubTasks { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<MainTaskDTO>()
+                .HasMany(mt => mt.SubTasks)
+                .WithOne(st => st.MainTask)
+                .HasForeignKey(mt => mt.MainTaskId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
 
         public void AttachEntity<TEntity>(TEntity entity) where TEntity : class, new()
         {

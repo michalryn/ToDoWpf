@@ -42,7 +42,7 @@ namespace ToDoApp.Data.Repositories
             if (mainTask != null)
             {
                 _context.MainTasks.Remove(mainTask);
-                await _context.SaveChangesAsync();
+                await _context.UpdateEntityAndSaveChangesAsync(mainTask);
             }
         }
 
@@ -50,9 +50,6 @@ namespace ToDoApp.Data.Repositories
         {
             await _context.UpdateEntityAndSaveChangesAsync(mainTask);
         }
-
-
-
 
     }
 }

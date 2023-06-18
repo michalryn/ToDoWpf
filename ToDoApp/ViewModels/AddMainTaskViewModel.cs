@@ -13,7 +13,7 @@ namespace ToDoApp.ViewModels
 {
     public class AddMainTaskViewModel : ViewModel
     {
-        private readonly IMainTaskRepository _mainTaskRepository;
+        private readonly IMainTaskService _mainTaskService;
 
         private string _title;
 
@@ -100,9 +100,9 @@ namespace ToDoApp.ViewModels
 
         public RelayCommand AddMainTaskCommand { get; set; }
 
-        public AddMainTaskViewModel(IMainTaskRepository mainTaskRepository)
+        public AddMainTaskViewModel(IMainTaskService mainTaskService)
         {
-            _mainTaskRepository = mainTaskRepository;
+            _mainTaskService = mainTaskService;
             AddMainTaskCommand = new RelayCommand(o => AddMainTask(), o => CanExecute());
         }
 
@@ -120,18 +120,7 @@ namespace ToDoApp.ViewModels
                 IsCompleted = false
             };
 
-            MainTaskDTO newTask = new MainTaskDTO()
-            {
-                Title = task.Title,
-                PriorityLevel = task.PriorityLevel,
-                CreationDate = task.CreationDate,
-                DeadlineDate = task.DeadlineDate,
-                Description = task.Description,
-                Progress = task.Progress,
-                IsCompleted = task.IsCompleted
-            };
-
-            await _mainTaskRepository.AddMainTaskAsync(newTask);
+            await _mainTaskService.AddMainTaskAsync(task);
         }
     }
 }
