@@ -22,7 +22,10 @@
             <FontFamily x:Key="Poppins">
                 pack://application:,,,/Fonts/#Poppins
             </FontFamily>
-            <DataTemplate DataType="{x:Type TypeName=viewModel:HomeViewModel}">
+            <FontFamily x:Key="FontAwesome">
+                pack://application:,,,/Fonts/#Font Awesome 6 Free Solid
+            </FontFamily>
+                <DataTemplate DataType="{x:Type TypeName=viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type TypeName=viewModel:TaskViewModel}">
