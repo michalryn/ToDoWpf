@@ -14,6 +14,7 @@ namespace ToDoApp.ViewModels
     public class AddMainTaskViewModel : ViewModel
     {
         private readonly IMainTaskService _mainTaskService;
+        private readonly INavigationService _navigationService;
 
         private string _title;
 
@@ -75,17 +76,6 @@ namespace ToDoApp.ViewModels
             }
         }
 
-        private bool _isButtonEnabled;
-        public bool IsButtonEnabled
-        {
-            get { return _isButtonEnabled; }
-            set
-            {
-                _isButtonEnabled = value;
-                OnPropertyChanged(nameof(IsButtonEnabled));
-            }
-        }
-
         public bool CanExecute()
         {
             if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(PriorityLevel) && !string.IsNullOrEmpty(Description))
@@ -100,9 +90,10 @@ namespace ToDoApp.ViewModels
 
         public RelayCommand AddMainTaskCommand { get; set; }
 
-        public AddMainTaskViewModel(IMainTaskService mainTaskService)
+        public AddMainTaskViewModel(IMainTaskService mainTaskService, INavigationService navigationService)
         {
             _mainTaskService = mainTaskService;
+            _navigationService = navigationService;
             AddMainTaskCommand = new RelayCommand(o => AddMainTask(), o => CanExecute());
         }
 
@@ -121,6 +112,17 @@ namespace ToDoApp.ViewModels
             };
 
             await _mainTaskService.AddMainTaskAsync(task);
+            ResetForm();
+            _navigationService.NavigateTo<HomeViewModel>();
+        }
+
+        public void ResetForm()
+        {
+            Title = "";
+            PriorityLevel = "";
+            StartDate = DateTime.Today;
+            DeadlineDate = DateTime.Today;
+            Description = "";
         }
     }
 }
