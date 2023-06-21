@@ -76,6 +76,16 @@ namespace ToDoApp.ViewModels
             }
         }
 
+        private List<string> _priorityComboBoxItems;
+        public List<string> PriorityComboBoxItems
+        {
+            get { return _priorityComboBoxItems; }
+            set
+            {
+                _priorityComboBoxItems = value;
+            }
+        }
+
         public bool CanExecute()
         {
             if (!string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(PriorityLevel) && !string.IsNullOrEmpty(Description))
@@ -95,6 +105,7 @@ namespace ToDoApp.ViewModels
             _mainTaskService = mainTaskService;
             _navigationService = navigationService;
             AddMainTaskCommand = new RelayCommand(o => AddMainTask(), o => CanExecute());
+            PriorityComboBoxItems = _mainTaskService.GetPriorityLevels();
         }
 
 

@@ -56,13 +56,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Label  Margin="8,0,0,0" Grid.Row="0" Content="Priority" FontSize="16" FontWeight="Bold"/>
-            <ComboBox Name="propCombBox" Margin="20,0,300,10" Grid.Row="1" Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}">
-                <ComboBox.Items>
-                <ComboBoxItem>Item 1</ComboBoxItem>
-                <ComboBoxItem>Item 2</ComboBoxItem>
-                <ComboBoxItem>Item 3</ComboBoxItem>
-                </ComboBox.Items>
-            </ComboBox>
+            <ComboBox Name="propCombBox" Margin="20,0,300,10" Grid.Row="1" Text="{Binding PriorityLevel, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding PriorityComboBoxItems}"/>
             <!--#region ItemsSource="{Binding PriorityLevel}"
                       SelectedItem="{Binding SelectedPriority}"> -->
         </Grid>
