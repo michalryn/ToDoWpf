@@ -27,7 +27,7 @@ namespace ToDoApp
         }
 
         private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
-        {
+        { 
             Left += e.HorizontalChange;
             Top += e.VerticalChange;
         }
@@ -41,5 +41,40 @@ namespace ToDoApp
         {
             SystemCommands.CloseWindow(this);
         }
+
+        private void CommandBinding_CanExecute_MaximizeWindowCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CommandBinding_Executed_MaximizeWindowCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            AdjustWindowSize();
+        }
+
+        private void CommandBinding_CanExecute_MinimizeWindowCommand(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CommandBinding_Executed_MinimizeWindowCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void AdjustWindowSize()
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                WindowStateButton.Content = "1";
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+                WindowStateButton.Content = "2";
+            }
+        }
+
     }
 }

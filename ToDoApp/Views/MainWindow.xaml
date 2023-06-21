@@ -13,6 +13,7 @@
         FontFamily="{StaticResource Poppins}"
         MaxWidth="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Width}"
         MaxHeight="{Binding Source={x:Static SystemParameters.WorkArea}, Path=Height}"
+        ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
     <Window.Resources>
@@ -24,6 +25,8 @@
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute_CloseWindowCommand" Executed="CommandBinding_Executed_CloseWindowCommand"/>
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute_MaximizeWindowCommand" Executed="CommandBinding_Executed_MaximizeWindowCommand"/>
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute_MinimizeWindowCommand" Executed="CommandBinding_Executed_MinimizeWindowCommand"/>
     </Window.CommandBindings>
     <Border Background="{StaticResource BackgroundColor}" CornerRadius="12">
         <DockPanel x:Name="RootWindow">
@@ -43,23 +46,47 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Thumb
-                            x:Name="headerThumb"
                             Opacity="0"
+                            x:Name="headerThumb" 
+                            DragDelta="headerThumb_DragDelta"
                             Background="{x:Null}"
                             Foreground="{x:Null}"
-                            DragDelta="headerThumb_DragDelta"
                             Cursor="Hand"
                             Grid.Column="0"/>
-                        <Button
-                            Command="{x:Static SystemCommands.CloseWindowCommand}"
-                            Background="{StaticResource BackgroundColor}"
-                            Foreground="{StaticResource ForegroundColor}"
-                            Content="r"
-                            Grid.Column="1"
-                            Cursor="Hand"
-                            Margin="2,2,4,2"
-                            ToolTip="Zamknij"
-                            Style="{StaticResource WindowButtonTheme}"/>
+                        <StackPanel 
+                            Grid.Column="1" 
+                            FlowDirection="LeftToRight" 
+                            Orientation="Horizontal">
+                            <Button
+                                Command="{x:Static SystemCommands.MinimizeWindowCommand}"
+                                Background="{StaticResource BackgroundColor}"
+                                Foreground="{StaticResource ForegroundColor}"
+                                Content="0"
+                                Cursor="Hand"
+                                Margin="2,2,4,2"
+                                ToolTip="Minimalizuj"
+                                Style="{StaticResource WindowButtonTheme}"/>
+                            <Button
+                                x:Name="WindowStateButton"
+                                Command="{x:Static SystemCommands.MaximizeWindowCommand}"
+                                Background="{StaticResource BackgroundColor}"
+                                Foreground="{StaticResource ForegroundColor}"
+                                Content="1"
+                                Cursor="Hand"
+                                Margin="2,2,4,2"
+                                ToolTip="Dostosuj"
+                                Style="{StaticResource WindowButtonTheme}"/>
+                            <Button
+                                Command="{x:Static SystemCommands.CloseWindowCommand}"
+                                Background="{StaticResource BackgroundColor}"
+                                Foreground="{StaticResource ForegroundColor}"
+                                Content="r"
+                                Cursor="Hand"
+                                Margin="2,2,4,2"
+                                ToolTip="Zamknij"
+                                Style="{StaticResource WindowButtonTheme}"/>
+                        </StackPanel>
+
                     </Grid>
                 </Border>
             </DockPanel>
@@ -68,31 +95,27 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="6" Grid.Column="0">
+                <StackPanel Margin="12,0,8,6" Grid.Column="0">
                     <TextBlock 
                             Text="WorkToDo"
                             FontSize="18"
                             FontWeight="Bold"
-                            Margin="6"
                             Foreground="{StaticResource ForegroundColor}"/>
 
                     <Button Content="Home"
-                                BorderThickness="0"
-                            Background="{StaticResource PrimaryColor}"
-                            Foreground="{StaticResource WhiteColor}"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Background="{StaticResource BackgroundColor}"
+                            Foreground="{StaticResource ForegroundColor}"
                             Command="{Binding Path=NavigateToHomeCommand}"/>
 
                     <Button 
                             Content="Add Task"
                             BorderThickness="0"
-                            Foreground="{StaticResource WhiteColor}"
-                            Background="{StaticResource PrimaryColor}"
+                            Cursor="Hand"
+                            Foreground="{StaticResource ForegroundColor}"
+                            Background="{StaticResource BackgroundColor}"
                             Command="{Binding Path=NavigateToAddMainTaskViewCommand}"/>
-                    <Button 
-                            Content="Delete Task"
-                            BorderThickness="0"
-                            Foreground="{StaticResource WhiteColor}"
-                            Background="{StaticResource DangerColor}"/>
                 </StackPanel>
                 <ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentView}"/>
             </Grid>

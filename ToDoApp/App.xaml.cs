@@ -45,7 +45,10 @@ namespace ToDoApp
                 options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ToDoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             });
 
+            services.AddSingleton<ISubTaskRepository, SubTaskRepository>();
+            services.AddSingleton<ISubTaskService, SubTaskService>();
             services.AddSingleton<IMainTaskRepository, MainTaskRepository>();
+            services.AddSingleton<IMainTaskService, MainTaskService>();
             services.AddSingleton<MainWindow>(provider => new MainWindow
             {
                 DataContext = provider.GetRequiredService<MainViewModel>(),

@@ -13,7 +13,7 @@ namespace ToDoApp.ViewModels
 {
     public class HomeViewModel : ViewModel
     {
-        private readonly IMainTaskRepository _mainTaskRepository;
+        private readonly IMainTaskService _mainTaskService;
         private INavigationService _navigation;
 
         public INavigationService Navigation
@@ -36,32 +36,51 @@ namespace ToDoApp.ViewModels
             }
         }
 
+        private MainTask _selectedTask;
+        public MainTask SelectedTask
+        {
+            get { return _selectedTask; }
+            set
+            {
+                _selectedTask = value;
+                OnPropertyChanged(nameof(SelectedTask));
+            }
+        }
+
         public RelayCommand NavigateToAddMainTaskViewCommand { get; set; }
         public RelayCommand LoadTasksCommand { get; set; }
+        public RelayCommand DeleteTaskCommand { get; set; }
 
-        public HomeViewModel(INavigationService navigation, IMainTaskRepository mainTaskRepository)
+        public HomeViewModel(INavigationService navigation, IMainTaskService mainTaskService)
         {
-            _mainTaskRepository = mainTaskRepository;
+            _mainTaskService = mainTaskService;
             Navigation = navigation;
             NavigateToAddMainTaskViewCommand = new RelayCommand(o => { Navigation.NavigateTo<AddMainTaskViewModel>(); });
             LoadTasksCommand = new RelayCommand(o => { LoadTasks(); });
+            DeleteTaskCommand = new RelayCommand(o => DeleteTask(), o => CanDelete());
+        }
+
+        public async void DeleteTask()
+        {
+            await _mainTaskService.RemoveMainTaskAsync(SelectedTask.Id);
+            Tasks.Remove(SelectedTask);
+        }
+
+        public bool CanDelete()
+        {
+            if(_selectedTask is null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public async void LoadTasks()
         {
-            var tasks = await _mainTaskRepository.GetAllAsync();
-
-            Tasks = new ObservableCollection<MainTask>(tasks.Select(t => new MainTask()
-            {
-                Id = t.Id,
-                Title = t.Title,
-                PriorityLevel = t.PriorityLevel,
-                CreationDate = t.CreationDate,
-                DeadlineDate = t.DeadlineDate,
-                Description = t.Description,
-                Progress = t.Progress,
-                IsCompleted = t.IsCompleted
-            }));
+            Tasks = await _mainTaskService.GetAllMainTasksAsync();
         }
     }
 }

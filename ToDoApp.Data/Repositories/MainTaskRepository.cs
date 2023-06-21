@@ -41,8 +41,8 @@ namespace ToDoApp.Data.Repositories
             var mainTask = await _context.MainTasks.Include(mt => mt.SubTasks).Where(mt => mt.Id == id).FirstOrDefaultAsync();
             if (mainTask != null)
             {
-                _context.MainTasks.Remove(mainTask);
-                await _context.UpdateEntityAndSaveChangesAsync(mainTask);
+                _context.RemoveEntity(mainTask);
+                await _context.SaveChangesAsync();
             }
         }
 
