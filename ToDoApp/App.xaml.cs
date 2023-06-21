@@ -12,6 +12,7 @@ using ToDoApp.Data;
 using ToDoApp.Data.IRepositories;
 using ToDoApp.Data.Repositories;
 using ToDoApp.Services;
+using ToDoApp.Stores;
 using ToDoApp.ViewModels;
 
 namespace ToDoApp
@@ -55,12 +56,15 @@ namespace ToDoApp
 
             });
 
+            services.AddSingleton<SelectedTaskStore>();
+
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<HomeViewModel>();
             services.AddSingleton<TaskViewModel>();
             services.AddSingleton<AddMainTaskViewModel>();
+            services.AddSingleton<TaskDetailsViewModel>();
             services.AddSingleton<INavigationService, NavigationService>();
-
+            
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
             return services.BuildServiceProvider();

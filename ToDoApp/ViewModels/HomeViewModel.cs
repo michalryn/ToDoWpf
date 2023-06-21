@@ -4,16 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using ToDoApp.Core;
 using ToDoApp.Data.IRepositories;
 using ToDoApp.Models;
 using ToDoApp.Services;
+using ToDoApp.Stores;
 
 namespace ToDoApp.ViewModels
 {
     public class HomeViewModel : ViewModel
     {
         private readonly IMainTaskService _mainTaskService;
+        private readonly SelectedTaskStore _selectedTaskStore;
         private INavigationService _navigation;
 
         public INavigationService Navigation
@@ -50,14 +53,23 @@ namespace ToDoApp.ViewModels
         public RelayCommand NavigateToAddMainTaskViewCommand { get; set; }
         public RelayCommand LoadTasksCommand { get; set; }
         public RelayCommand DeleteTaskCommand { get; set; }
+        public RelayCommand ViewTaskDetailsCommand { get; set; }
 
-        public HomeViewModel(INavigationService navigation, IMainTaskService mainTaskService)
+        public HomeViewModel(INavigationService navigation, IMainTaskService mainTaskService, SelectedTaskStore selectedTaskStore)
         {
             _mainTaskService = mainTaskService;
+            _selectedTaskStore = selectedTaskStore;
             Navigation = navigation;
             NavigateToAddMainTaskViewCommand = new RelayCommand(o => { Navigation.NavigateTo<AddMainTaskViewModel>(); });
             LoadTasksCommand = new RelayCommand(o => { LoadTasks(); });
-            DeleteTaskCommand = new RelayCommand(o => DeleteTask(), o => CanDelete());
+            DeleteTaskCommand = new RelayCommand(o => DeleteTask(), o => IsSelected());
+            ViewTaskDetailsCommand = new RelayCommand(o => ViewTaskDetails(), o => IsSelected());
+        }
+
+        public void ViewTaskDetails()
+        {
+            _selectedTaskStore.MainTask = SelectedTask ?? null;
+            Navigation.NavigateTo<TaskDetailsViewModel>();
         }
 
         public async void DeleteTask()
@@ -66,7 +78,7 @@ namespace ToDoApp.ViewModels
             Tasks.Remove(SelectedTask);
         }
 
-        public bool CanDelete()
+        public bool IsSelected()
         {
             if(_selectedTask is null)
             {
