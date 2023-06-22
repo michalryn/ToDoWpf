@@ -124,6 +124,21 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+            <ComboBox
+                Name="FilterBy"
+                SelectionChanged="FilterBy_SelectionChanged"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="140"
+                Margin="0,0,0,0"/>
+            <TextBox
+                Name="FilterTextBox"
+                TextChanged="FilterTextBox_TextChanged"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="140"
+                Margin="300,0,0,0"
+                />
         </Grid>
         <ListView 
               Grid.Row="2"
