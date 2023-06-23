@@ -11,6 +11,9 @@
         <b:EventTrigger EventName="Loaded">
             <b:CallMethodAction TargetObject="{Binding}" MethodName="LoadTasks"/>
         </b:EventTrigger>
+        <b:EventTrigger EventName="UnLoaded">
+            <b:CallMethodAction TargetObject="{Binding}" MethodName="UnloadTasks"/>
+        </b:EventTrigger>
     </b:Interaction.Triggers>
     <Grid 
         Margin="8,0,10,8">
@@ -55,7 +58,7 @@
                 FontSize="16"
                 BorderThickness="0"
                     Margin="0,0,2,0"
-                Command="{Binding DeleteTaskCommand}">
+                Command="{Binding ViewTaskDetailsCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
@@ -86,13 +89,13 @@
                     </Button.Template>
                 </Button>
                 <Button
-                Cursor="Hand"
-                ToolTip="Usuń"
-                FontFamily="{StaticResource FontAwesome}"
-                Content="trash"
-                FontSize="16"
-                BorderThickness="0"
-                Command="{Binding DeleteTaskCommand}"
+                    Cursor="Hand"
+                    ToolTip="Usuń"
+                    FontFamily="{StaticResource FontAwesome}"
+                    Content="trash"
+                    FontSize="16"
+                    BorderThickness="0"
+                    Command="{Binding DeleteTaskCommand}"
                     Margin="2,0,0,0">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -140,7 +143,15 @@
                 Margin="300,0,0,0"
                 />
         </Grid>
-        <ListView 
+        <ListView  
+            Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            Name="TasksList"
+            Background="{StaticResource BackgroundColor}"
+            BorderBrush="Transparent"
+            ItemsSource="{Binding Tasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedTask}">
+        <!--<ListView 
               Grid.Row="2"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Top"
@@ -176,13 +187,32 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </ListView.Resources>
+            </ListView.Resources> -->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
-            <ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5" Cursor="Hand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.ColumnSpan="3" Background="{StaticResource WhiteColor}" CornerRadius="12" BorderThickness="1" Padding="20">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
+                            </Border.Effect>
+                        </Border>
+                        <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Description}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                        <CheckBox x:Name="IsCompleted" Grid.Column="2" IsChecked="{Binding IsCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <!--<ListView.View>
                 <GridView>
                     <GridViewColumn Header="Title" Width="130" DisplayMemberBinding="{Binding Title}"/>
                     <GridViewColumn Header="Creation Date" Width="140" DisplayMemberBinding="{Binding CreationDate, StringFormat=dd/MM/yyyy}"/>
@@ -196,7 +226,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
-            </ListView.View>
+            </ListView.View>-->
         </ListView>
     </Grid>
 </UserControl>

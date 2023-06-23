@@ -43,14 +43,22 @@ namespace ToDoApp.Services
 
         public async Task UpdateSubTaskAsync(SubTask subTask)
         {
-            SubTaskDTO newTask = new SubTaskDTO()
+            try
             {
-                Title = subTask.Title,
-                Description = subTask.Description,
-                IsCompleted = subTask.IsCompleted,
-                MainTaskId = subTask.MainTaskId,
-            };
-            await _subTaskRepository.UpdateSubTaskAsync(newTask);
+                var oldSubTask = await _subTaskRepository.GetByIdAsync(subTask.Id);
+                if (oldSubTask is null)
+                    return;
+
+                oldSubTask.Title = subTask.Title;
+                oldSubTask.IsCompleted = subTask.IsCompleted;
+
+                await _subTaskRepository.UpdateSubTaskAsync(oldSubTask);
+                return;
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
         }
     }
 }

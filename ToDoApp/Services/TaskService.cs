@@ -19,7 +19,7 @@ namespace ToDoApp.Services
     public interface IMainTaskService
     {
         Task<ObservableCollection<MainTask>> GetAllMainTasksAsync();
-        Task<MainTaskDTO> GetMainTaskByIdAsync(int taskId);
+        Task<MainTask> GetMainTaskByIdAsync(int taskId);
         Task AddMainTaskAsync(MainTask mainTask);
         Task RemoveMainTaskAsync(int taskId);
         Task UpdateMainTaskAsync(MainTask mainTask);
@@ -49,15 +49,52 @@ namespace ToDoApp.Services
                 DeadlineDate = t.DeadlineDate,
                 Description = t.Description,
                 Progress = t.Progress,
-                IsCompleted = t.IsCompleted
+                IsCompleted = t.IsCompleted,
+                SubTasks = t.SubTasks?.Select(st => new SubTask()
+                {
+                    Id = st.Id,
+                    Title = st.Title,
+                    IsCompleted = st.IsCompleted,
+                    MainTaskId = st.MainTaskId
+                }).ToList()
             }));
 
             return observableTasks;
         }
 
-        public async Task<MainTaskDTO> GetMainTaskByIdAsync(int taskId)
+        public async Task<MainTask> GetMainTaskByIdAsync(int taskId)
         {
-            return await _mainTaskRepository.GetMainTaskByIdAsync(taskId);
+            try
+            {
+                var dto = await _mainTaskRepository.GetMainTaskByIdAsync(taskId);
+                if (dto is null)
+                    return null;
+
+                MainTask task = new MainTask()
+                {
+                    Id = dto.Id,
+                    Title = dto.Title,
+                    PriorityLevel = dto.PriorityLevel,
+                    CreationDate = dto.CreationDate,
+                    DeadlineDate = dto.DeadlineDate,
+                    Description = dto.Description,
+                    Progress = dto.Progress,
+                    IsCompleted = dto.IsCompleted,
+                    SubTasks = dto.SubTasks?.Select(st => new SubTask()
+                    {
+                        Id = st.Id,
+                        Title = st.Title,
+                        Description = st.Description,
+                        MainTaskId = st.MainTaskId
+                    }).ToList()
+                };
+
+                return task;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task AddMainTaskAsync(MainTask mainTask)
@@ -83,17 +120,28 @@ namespace ToDoApp.Services
 
         public async Task UpdateMainTaskAsync(MainTask mainTask)
         {
-            MainTaskDTO newTask = new MainTaskDTO()
+            try
             {
-                Title = mainTask.Title,
-                PriorityLevel = mainTask.PriorityLevel,
-                CreationDate = mainTask.CreationDate,
-                DeadlineDate = mainTask.DeadlineDate,
-                Description = mainTask.Description,
-                Progress = mainTask.Progress,
-                IsCompleted = mainTask.IsCompleted
-            };
-            await _mainTaskRepository.UpdateMainTaskAsync(newTask);
+                MainTaskDTO oldTask = await _mainTaskRepository.GetMainTaskByIdAsync(mainTask.Id);
+                
+                if (oldTask is null)
+                    return;
+
+                oldTask.Title = mainTask.Title;
+                oldTask.PriorityLevel = mainTask.PriorityLevel;
+                oldTask.CreationDate = mainTask.CreationDate;
+                oldTask.DeadlineDate = mainTask.DeadlineDate;
+                oldTask.Description = mainTask.Description;
+                oldTask.Progress = mainTask.Progress;
+                oldTask.IsCompleted = mainTask.IsCompleted;
+
+                await _mainTaskRepository.UpdateMainTaskAsync(oldTask);
+
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         public List<string> GetPriorityLevels()

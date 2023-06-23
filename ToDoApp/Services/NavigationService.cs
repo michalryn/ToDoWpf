@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ToDoApp.Core;
+using ToDoApp.ViewModels;
 
 namespace ToDoApp.Services
 {
@@ -34,6 +35,12 @@ namespace ToDoApp.Services
         public void NavigateTo<TViewModel>() where TViewModel : ViewModel
         {
             ViewModel viewModel = _viewModelFactory.Invoke(typeof(TViewModel));
+            if(CurrentView is HomeViewModel)
+            {
+                var home = CurrentView as HomeViewModel;
+                if(home is not null && viewModel is not HomeViewModel)
+                    home.UnloadTasks();
+            }
             CurrentView = viewModel;
         }
 
