@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -87,7 +88,7 @@ namespace ToDoApp.ViewModels
             _navigation = navigation;
             PriorityComboBoxItems = _mainTaskService.GetPriorityLevels();
             SaveCommand = new RelayCommand(o => Save());
-            AddSubTaskCommand = new RelayCommand(o => AddSubTask());
+            AddSubTaskCommand = new RelayCommand(o => AddSubTask(), o => CanAddSubTask());
             RemoveSubTaskCommand = new RelayCommand(subTask => RemoveSubTask(subTask));
             SubTasks = new ObservableCollection<SubTask>();
             SubTasks.CollectionChanged += SubTasks_CollectionChanged;
@@ -157,6 +158,16 @@ namespace ToDoApp.ViewModels
             _selectedTaskStore.MainTask = await _mainTaskService.GetMainTaskByIdAsync(MainTask.Id);
             SubTaskTitle = "";
             LoadSubTasks();
+        }
+
+        public bool CanAddSubTask()
+        {
+            if(SubTaskTitle.IsNullOrEmpty())
+            {
+                return false;
+            }
+            else
+                return true;
         }
 
         public async void RemoveSubTask(object sender)
