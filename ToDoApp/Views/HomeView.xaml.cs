@@ -12,98 +12,125 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ToDoApp.Common;
 using ToDoApp.Models;
 
 namespace ToDoApp.Views
 {
+    /// <summary>
+    /// Logika interakcji dla klasy HomeView.xaml
+    /// </summary>
     public partial class HomeView : UserControl
     {
         public HomeView()
         {
             InitializeComponent();
-            FilterBy.ItemsSource = new string[] { "All", "Title", "Priority Low", "Priority Medium", "Priority High", "Priority Undefined", "Completed", "Uncompleted" };
+
+            FilterBy.ItemsSource = new string[] { "Title", "Priority Low", "Priority Medium", "Priority High", "Priority Undefined", "Completed", "Uncompleted"};
+
         }
 
         public Predicate<object> GetFilter()
         {
-            switch (FilterBy.SelectedItem as string)
+            switch (FilterBy.SelectedItem as string) 
             {
-                case "All":
-                    return null;
-
                 case "Title":
                     return TitleFilter;
 
                 case "Priority Low":
+                    return PriorityFilterLow;
+                
                 case "Priority Medium":
+                    return PriorityFilterMedium;
+                
                 case "Priority High":
+                    return PriorityFilterHigh;
+
                 case "Priority Undefined":
-                    return PriorityFilter;
+                    return PriorityFilterUndefined;
 
                 case "Completed":
                     return CompletedFilter;
 
                 case "Uncompleted":
                     return UncompletedFilter;
-
-                default:
-                    return null;
             }
+
+            return TitleFilter;
         }
 
         private bool TitleFilter(object obj)
         {
-            var filterObj = obj as MainTask;
-            return filterObj.Title.Contains(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase);
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.Title.Contains(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase);
+
         }
 
         private bool PriorityFilter(object obj)
         {
-            var filterObj = obj as MainTask;
-            var selectedPriority = FilterBy.SelectedItem as string;
-            var priorityEnum = (PriorityLevelEnum)Enum.Parse(typeof(PriorityLevelEnum), selectedPriority.ToUpper());
-            return filterObj.PriorityLevel == priorityEnum;
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.PriorityLevel.Contains(FilterTextBox.Text, StringComparison.OrdinalIgnoreCase);
+
         }
 
         private bool CompletedFilter(object obj)
         {
-            var filterObj = obj as MainTask;
-            return filterObj.IsCompleted;
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.IsCompleted == true;
         }
 
         private bool UncompletedFilter(object obj)
         {
-            var filterObj = obj as MainTask;
-            return !filterObj.IsCompleted;
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.IsCompleted == false;
+        }
+
+        private bool PriorityFilterLow(object obj)
+        {
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.PriorityLevel.Contains("Low", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool PriorityFilterMedium(object obj)
+        {
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.PriorityLevel.Contains("Medium", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool PriorityFilterHigh(object obj)
+        {
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.PriorityLevel.Contains("High", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool PriorityFilterUndefined(object obj)
+        {
+            var Filterobj = obj as MainTask;
+
+            return Filterobj.PriorityLevel.Contains("Undefined", StringComparison.OrdinalIgnoreCase);
         }
 
         private void FilterBy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FilterTextBox.Text == null)
+            if(FilterTextBox.Text == null)
             {
-                TasksList.Items.Filter = GetFilter();
+                TasksList.Items.Filter = null;
             }
             else
             {
-                TasksList.Items.Filter = CombineFilters(GetFilter(), TitleFilter);
+                TasksList.Items.Filter = GetFilter();
             }
         }
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TasksList.Items.Filter = CombineFilters(GetFilter(), TitleFilter);
-        }
-
-        private Predicate<object> CombineFilters(Predicate<object> filter1, Predicate<object> filter2)
-        {
-            if (filter1 == null && filter2 == null)
-                return null;
-            if (filter1 == null)
-                return filter2;
-            if (filter2 == null)
-                return filter1;
-            return o => filter1(o) && filter2(o);
+            TasksList.Items.Filter = GetFilter();
         }
     }
 }
