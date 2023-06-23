@@ -26,6 +26,7 @@ namespace ToDoApp.Views
             InitializeComponent();
 
             FilterBy.ItemsSource = new string[] { "Title", "Priority Low", "Priority Medium", "Priority High", "Priority Undefined", "Completed", "Uncompleted"};
+            FilterBy.SelectedIndex = 0;
 
         }
 
