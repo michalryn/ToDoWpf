@@ -26,13 +26,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border
-            Grid.Row="0"
-                Background="{StaticResource PrimaryColor}"
-                CornerRadius="12">
+            Grid.RowSpan="11"
+            Grid.ColumnSpan="2"
+            Background="{StaticResource WhiteColor}"
+            CornerRadius="12">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
             </Border.Effect>
-            <TextBlock Padding="40,15,40,15" Text="Search" FontSize="16" Foreground="{StaticResource WhiteColor}"/>
         </Border>
         <Grid Grid.Row="1"
               Margin="8">
@@ -44,7 +44,8 @@
                 Grid.Column="0"
                 Text="Tasks" 
                 Foreground="{StaticResource ForegroundColor}"
-                FontSize="18"
+                FontSize="20"
+                Margin="12,0,0,0"
                 FontWeight="Bold"/>
             <StackPanel 
                 Grid.Column="1"
@@ -126,6 +127,21 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+            <ComboBox
+                Name="FilterBy"
+                SelectionChanged="FilterBy_SelectionChanged"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="140"
+                Margin="0,0,0,0"/>
+            <TextBox
+                Name="FilterTextBox"
+                TextChanged="FilterTextBox_TextChanged"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="140"
+                Margin="300,0,0,0"
+                />
         </Grid>
         <ListView  
             Grid.Row="2"
@@ -135,6 +151,43 @@
             BorderBrush="Transparent"
             ItemsSource="{Binding Tasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedTask}">
+        <!--<ListView 
+              Grid.Row="2"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Top"
+              Name="TasksList"
+              Background="{StaticResource BackgroundColor}"
+              BorderBrush="{StaticResource ForegroundColor}"
+              ItemsSource="{Binding Tasks}"
+              SelectedItem="{Binding SelectedTask}">
+            <ListView.Resources>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="true">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="1"/>
+                                        </Grid.RowDefinitions>
+                                        <ContentPresenter Grid.Row="0"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        <Border Grid.Row="1" Background="LightGray" Height="1"/>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Resources> -->
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -159,6 +212,21 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <!--<ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Title" Width="130" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Creation Date" Width="140" DisplayMemberBinding="{Binding CreationDate, StringFormat=dd/MM/yyyy}"/>
+                    <GridViewColumn Header="Deadline Date" Width="140" DisplayMemberBinding="{Binding DeadlineDate, StringFormat=dd/MM/yyyy}"/>
+                    <GridViewColumn Header="Priority Level" Width="140" DisplayMemberBinding="{Binding PriorityLevel}"/>
+                    <GridViewColumn Header="Is Completed" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsCompleted}" VerticalAlignment="Center" Margin="5"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>-->
         </ListView>
     </Grid>
 </UserControl>
