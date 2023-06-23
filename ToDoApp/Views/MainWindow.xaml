@@ -64,7 +64,7 @@
                                 Content="0"
                                 Cursor="Hand"
                                 Margin="2,2,4,2"
-                                ToolTip="Minimalizuj"
+                                ToolTip="Minimize"
                                 Style="{StaticResource WindowButtonTheme}"/>
                             <Button
                                 x:Name="WindowStateButton"
@@ -74,7 +74,7 @@
                                 Content="1"
                                 Cursor="Hand"
                                 Margin="2,2,4,2"
-                                ToolTip="Dostosuj"
+                                ToolTip="Adjust"
                                 Style="{StaticResource WindowButtonTheme}"/>
                             <Button
                                 Command="{x:Static SystemCommands.CloseWindowCommand}"
@@ -83,7 +83,7 @@
                                 Content="r"
                                 Cursor="Hand"
                                 Margin="2,2,4,2"
-                                ToolTip="Zamknij"
+                                ToolTip="Close"
                                 Style="{StaticResource WindowButtonTheme}"/>
                         </StackPanel>
 
@@ -105,6 +105,7 @@
                     <Button Content="Home"
                             BorderThickness="0"
                             Cursor="Hand"
+                            ToolTip="Home page"
                             Background="{StaticResource BackgroundColor}"
                             Foreground="{StaticResource ForegroundColor}"
                             Command="{Binding Path=NavigateToHomeCommand}"/>
@@ -113,6 +114,7 @@
                             Content="Add Task"
                             BorderThickness="0"
                             Cursor="Hand"
+                            ToolTip="Add task page"
                             Foreground="{StaticResource ForegroundColor}"
                             Background="{StaticResource BackgroundColor}"
                             Command="{Binding Path=NavigateToAddMainTaskViewCommand}"/>

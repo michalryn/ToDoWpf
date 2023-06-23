@@ -11,9 +11,6 @@
         <b:EventTrigger EventName="Loaded">
             <b:CallMethodAction TargetObject="{Binding}" MethodName="LoadTasks"/>
         </b:EventTrigger>
-        <b:EventTrigger EventName="UnLoaded">
-            <b:CallMethodAction TargetObject="{Binding}" MethodName="UnloadTasks"/>
-        </b:EventTrigger>
     </b:Interaction.Triggers>
     <Grid 
         Margin="8,0,10,8">
@@ -25,15 +22,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border
-            Grid.RowSpan="11"
-            Grid.ColumnSpan="2"
-            Background="{StaticResource WhiteColor}"
-            CornerRadius="12">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
-            </Border.Effect>
-        </Border>
         <Grid Grid.Row="1"
               Margin="8">
             <Grid.ColumnDefinitions>
@@ -52,12 +40,12 @@
                 Orientation="Horizontal">
                 <Button
                 Cursor="Hand"
-                ToolTip="Szczegóły"
+                ToolTip="Details"
                 FontFamily="{StaticResource FontAwesome}"
                 Content="bars"
                 FontSize="16"
                 BorderThickness="0"
-                    Margin="0,0,2,0"
+                    Margin="0,0,4,0"
                 Command="{Binding ViewTaskDetailsCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
@@ -66,7 +54,7 @@
                                     <Setter Property="Background" Value="Gray"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+                                    <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
                                 </Trigger>
                             </Style.Triggers>
                             <Setter Property="Foreground" Value="{StaticResource WhiteColor}" />
@@ -75,6 +63,7 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border
+                                x:Name="DetailsBorder"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -85,18 +74,23 @@
                                 </Border.Effect>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="DarkBlue" TargetName="DetailsBorder"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
                 <Button
                     Cursor="Hand"
-                    ToolTip="Usuń"
+                    ToolTip="Delete"
                     FontFamily="{StaticResource FontAwesome}"
                     Content="trash"
                     FontSize="16"
                     BorderThickness="0"
                     Command="{Binding DeleteTaskCommand}"
-                    Margin="2,0,0,0">
+                    Margin="4,0,0,0">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Style.Triggers>
@@ -113,6 +107,7 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border
+                                x:Name="DeleteBorder"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -123,6 +118,11 @@
                                 </Border.Effect>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightPink" TargetName="DeleteBorder"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
@@ -151,7 +151,7 @@
             BorderBrush="Transparent"
             ItemsSource="{Binding Tasks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedTask}">
-        <!--<ListView 
+            <!--<ListView 
               Grid.Row="2"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Top"
@@ -199,16 +199,22 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <Border Grid.ColumnSpan="3" Background="{StaticResource WhiteColor}" CornerRadius="12" BorderThickness="1" Padding="20">
+                        <Border Grid.ColumnSpan="4" Background="{StaticResource WhiteColor}" CornerRadius="12" BorderThickness="1" Padding="20">
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="Black" Opacity="0.3"/>
                             </Border.Effect>
                         </Border>
-                        <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
-                        <CheckBox x:Name="IsCompleted" Grid.Column="2" IsChecked="{Binding IsCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Grid.Column="0" Text="{Binding Title}" VerticalAlignment="Center" Margin="16,12,12,12"/>
+                        <TextBlock Grid.Column="1" Text="{Binding PriorityLevel}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <WrapPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding CreationDate, StringFormat=dd/MM/yyyy}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                            <TextBlock Text="-" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding DeadlineDate, StringFormat=dd/MM/yyyy}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                        </WrapPanel>
+                        <CheckBox x:Name="IsCompleted" Grid.Column="3" HorizontalAlignment="Right" Margin="12,12,16,12" IsChecked="{Binding IsCompleted, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
