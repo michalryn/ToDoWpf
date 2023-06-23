@@ -12,6 +12,7 @@ namespace ToDoApp.Common
         [Description("High")] HIGH,
         [Description("Medium")] MEDIUM,
         [Description("Low")] LOW,
-        [Description("Undefined")] UNDEFINED
+        [Description("Undefined")] UNDEFINED,
+        [Description("All")] ALL
     }
 }
