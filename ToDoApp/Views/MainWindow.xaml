@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ToDoApp"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="500" Width="900"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"

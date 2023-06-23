@@ -18,6 +18,12 @@ namespace ToDoApp.Data.Repositories
             _context = context;
         }
 
+        public async Task<SubTaskDTO> GetByIdAsync(int id)
+        {
+            var subTask = await _context.SubTasks.SingleOrDefaultAsync(sb => sb.Id == id);
+            return subTask;
+        }
+
         public async Task AddSubTaskAsync(SubTaskDTO subTask)
         {
             var mainTask = await _context.MainTasks.Include(mt => mt.SubTasks).SingleOrDefaultAsync(mt => mt.Id == subTask.MainTaskId);
@@ -36,15 +42,15 @@ namespace ToDoApp.Data.Repositories
 
             if (subTask != null)
             {
-                _context.SubTasks.Remove(subTask);
-                await _context.UpdateEntityAndSaveChangesAsync(subTask);
+                _context.RemoveEntity(subTask);
+                await _context.SaveChangesAsync();
             }
 
         }
 
         public async Task UpdateSubTaskAsync(SubTaskDTO subTask)
         {
-            var mainTask = await _context.MainTasks.Include(mt => mt.SubTasks).SingleOrDefaultAsync(mt => mt.Id == subTask.MainTaskId);
+            /*var mainTask = await _context.MainTasks.Include(mt => mt.SubTasks).SingleOrDefaultAsync(mt => mt.Id == subTask.MainTaskId);
             if (mainTask != null)
             {
                 var existingSubTask = mainTask.SubTasks.SingleOrDefault(st => st.Id == subTask.Id);
@@ -56,7 +62,8 @@ namespace ToDoApp.Data.Repositories
 
                     await _context.UpdateEntityAndSaveChangesAsync(mainTask);
                 }
-            }
+            }*/
+            await _context.UpdateEntityAndSaveChangesAsync(subTask);
         }
 
     }

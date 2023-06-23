@@ -12,5 +12,6 @@ namespace ToDoApp.Data.IRepositories
         Task AddSubTaskAsync(SubTaskDTO subTask);
         Task DeleteSubTaskByIdAsync(int subTaskId);
         Task UpdateSubTaskAsync(SubTaskDTO subTask);
+        Task<SubTaskDTO> GetByIdAsync(int id);
     }
 }

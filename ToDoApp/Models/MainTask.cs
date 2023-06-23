@@ -18,6 +18,16 @@ namespace ToDoApp.Models
         public string? Description { get; set; }
         public double? Progress { get; set; }
         public virtual ICollection<SubTask>? SubTasks { get; set; }
-        public bool IsCompleted { get; set; }
+        private bool _isCompleted;
+        public bool IsCompleted
+        {
+            get { return _isCompleted; }
+            set
+            {
+                _isCompleted = value;
+                OnPropertyChanged(nameof(IsCompleted));
+                
+            }
+        }
     }
 }
